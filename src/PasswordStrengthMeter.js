@@ -4,24 +4,7 @@ import zxcvbn from 'zxcvbn';
 
 class PasswordStrengthMeter extends Component {
 
-  stylePasswordStrengthMeter = (result) => {
-    switch (result.score) {
-      case 0:
-        return 'password-strength-meter-progress-weak';
-      case 1:
-        return 'password-strength-meter-progress-weak';
-      case 2:
-        return 'password-strength-meter-progress-fair';
-      case 3:
-        return 'password-strength-meter-progress-good';
-      case 4:
-        return 'password-strength-meter-progress-strong';
-      default:
-        return 'password-strength-meter-progress-weak';
-    }
-  }
-
-  passwordLabel = (result) => {
+  createPasswordLabel = (result) => {
     switch (result.score) {
       case 0:
         return 'Weak';
@@ -44,8 +27,7 @@ class PasswordStrengthMeter extends Component {
     return (
       <div className="password-strength-meter">
         <progress
-          style={{ }}
-          className={`password-strength-meter-progress ${this.stylePasswordStrengthMeter(testedResult)}`}
+          className={`password-strength-meter-progress strength-${this.createPasswordLabel(testedResult)}`}
           value={testedResult.score}
           max="4"
         />
@@ -55,7 +37,7 @@ class PasswordStrengthMeter extends Component {
         >
           {password && (
             <>
-              <strong>Password strength:</strong> {this.passwordLabel(testedResult)}
+              <strong>Password strength:</strong> {this.createPasswordLabel(testedResult)}
             </>
           )}
         </label>
